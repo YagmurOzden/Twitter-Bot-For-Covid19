@@ -9,6 +9,9 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from datetime import date
+from PIL import Image
+from io import BytesIO
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 #this is where i put my CONSUMER_KEY etc.
@@ -58,19 +61,33 @@ class Screenshot():
         self.browserProfile=webdriver.ChromeOptions()
         self.browserProfile.add_experimental_option('prefs',{'intl.accept_languages': 'en,en_US'})
         self.browser=webdriver.Chrome('chromedriver.exe',chrome_options=self.browserProfile)   
+
     def Screenshot(self):
 
         url="https://covid19.saglik.gov.tr/"
-        self.browser.get(url)
+        self.browser.get(url)    
+        #for scrolling page
+        element = self.browser.find_element_by_id("vaka_sayilari_home") # find part of the stuff you want 
+        
+        
+        element.location_once_scrolled_into_view
+        #for macximize our window
         self.browser.maximize_window()
-        data= self.browser.find_element_by_xpath("/html/body/section[2]/div/div/div")
-        time.sleep(5)
-        ss= data.screenshot_as_png
-        time.sleep(5)
+
+        time.sleep(2)
+        ss= element.screenshot_as_png
+        time.sleep(2)
 
         with open(str(date.today()) +'.png', 'wb') as f:
-            f.write(ss)       
-        self.browser.close()
+            f.write(ss) 
+        self.browser.quit()
+
+
+
+
+
+
+       
 
 if __name__=="__main__":
 
