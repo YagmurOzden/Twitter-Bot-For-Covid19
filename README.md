@@ -8,3 +8,6 @@ I will take data from our government web page which is “https://covid19.saglik
 For running python Tweepy.py
 
 Stream.py file is for streaming twitter tweets
+
+
+#This project is for windows
